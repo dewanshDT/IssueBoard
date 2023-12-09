@@ -23,7 +23,7 @@ export interface ticket {
   teamID: "HFE" | "HBE" | "HP"
   id: string
   title: string
-  parentId: string
+  parentID: string | null
   status: status
   labels: label[]
   priority: priority
