@@ -1,63 +1,67 @@
-import React from "react"
-import { useInfiniteQuery } from "@tanstack/react-query"
+import { InfiniteData } from "@tanstack/react-query"
+
+import { FixedSizeList } from "react-window"
+import AutoSizer from "react-virtualized-auto-sizer"
+
+import IssueItem from "./IssueItem"
 import { ticket } from "../types"
 
-const IssueList = () => {
-  const fetchIssues = async ({ pageParam = 1 }) => {
-    console.log(pageParam)
-    const res = await fetch(
-      `https://sfe-interview.hoppscotch.com/issues-${pageParam}.json`
-    )
-    const data: {
-      tickets: ticket[]
-    } = await res.json()
-    return data
-  }
+import { CgSpinner } from "react-icons/cg"
 
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
-    queryKey: ["issues"],
-    queryFn: fetchIssues,
-    getNextPageParam: (_lastPage, _allPages, lastPageParam) => {
-      return lastPageParam <= 9 ? lastPageParam + 1 : undefined
-    },
-    initialPageParam: 1,
-  })
-
+const IssueList = ({
+  data,
+  error,
+  status,
+}: {
+  data:
+    | InfiniteData<
+        {
+          tickets: ticket[]
+        },
+        unknown
+      >
+    | undefined
+  error: Error | null
+  status: "error" | "pending" | "success"
+}) => {
   console.log(data)
 
-  if (status === "pending") return <p>Loading...</p>
-  else if (status === "error") return <p>Error: {error?.message}</p>
+  if (status === "pending")
+    return (
+      <div className="h-full w-full flex items-center justify-center text-4xl text-neutral-700">
+        <CgSpinner className="animate-spin" />
+      </div>
+    )
+  else if (status === "error")
+    return (
+      <div className="h-full w-full flex items-center justify-center text-neutral-700">
+        {error?.message}
+      </div>
+    )
 
   return (
     <>
-      {data?.pages.map((group, i) => (
-        <React.Fragment key={i}>
-          {group.tickets?.map((issue) => (
-            <p key={issue.id}>{issue.title}</p>
-          ))}
-        </React.Fragment>
-      ))}
-      <div>
-        <button
-          onClick={() => fetchNextPage()}
-          disabled={!hasNextPage || isFetchingNextPage}
-        >
-          {isFetchingNextPage
-            ? "Loading more..."
-            : hasNextPage
-            ? "Load More"
-            : "Nothing more to load"}
-        </button>
-      </div>
-      <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
+      <AutoSizer>
+        {({ height, width }) => (
+          <>
+            <FixedSizeList
+              className="issue-list relative"
+              height={height}
+              width={width}
+              itemSize={40} // Adjust this value based on your item height
+              itemCount={
+                data?.pages.reduce(
+                  (count, group) => count + (group.tickets?.length || 0),
+                  0
+                ) || 0
+              }
+              itemData={data?.pages.flatMap((group) => group.tickets) || []}
+            >
+              {IssueItem}
+            </FixedSizeList>
+          </>
+        )}
+      </AutoSizer>
     </>
   )
 }
