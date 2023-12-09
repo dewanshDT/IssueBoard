@@ -1,5 +1,3 @@
-import { InfiniteData } from "@tanstack/react-query"
-
 import { FixedSizeList } from "react-window"
 import AutoSizer from "react-virtualized-auto-sizer"
 
@@ -13,19 +11,10 @@ const IssueList = ({
   error,
   status,
 }: {
-  data:
-    | InfiniteData<
-        {
-          tickets: ticket[]
-        },
-        unknown
-      >
-    | undefined
+  data: ticket[]
   error: Error | null
   status: "error" | "pending" | "success"
 }) => {
-  console.log(data)
-
   if (status === "pending")
     return (
       <div className="h-full w-full flex items-center justify-center text-4xl text-neutral-700">
@@ -49,13 +38,8 @@ const IssueList = ({
               height={height}
               width={width}
               itemSize={40} // Adjust this value based on your item height
-              itemCount={
-                data?.pages.reduce(
-                  (count, group) => count + (group.tickets?.length || 0),
-                  0
-                ) || 0
-              }
-              itemData={data?.pages.flatMap((group) => group.tickets) || []}
+              itemCount={data?.length}
+              itemData={data}
             >
               {IssueItem}
             </FixedSizeList>
