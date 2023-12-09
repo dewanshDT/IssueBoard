@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+  .issue-item {
+    gap: 0.8rem;
+  }
+
+  .issue-id {
+    display: none !important;
+  }
+}
