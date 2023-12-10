@@ -11,7 +11,7 @@ const IssueList = ({
   error,
   status,
 }: {
-  data: ticket[]
+  data: ticket[] | undefined
   error: Error | null
   status: "error" | "pending" | "success"
 }) => {
@@ -30,22 +30,24 @@ const IssueList = ({
 
   return (
     <>
-      <AutoSizer>
-        {({ height, width }) => (
-          <>
-            <FixedSizeList
-              className="issue-list relative"
-              height={height}
-              width={width}
-              itemSize={40} // Adjust this value based on your item height
-              itemCount={data?.length}
-              itemData={data}
-            >
-              {IssueItem}
-            </FixedSizeList>
-          </>
-        )}
-      </AutoSizer>
+      {data && (
+        <AutoSizer>
+          {({ height, width }) => (
+            <>
+              <FixedSizeList
+                className="issue-list relative"
+                height={height}
+                width={width}
+                itemSize={40} // Adjust this value based on your item height
+                itemCount={data.length}
+                itemData={data}
+              >
+                {IssueItem}
+              </FixedSizeList>
+            </>
+          )}
+        </AutoSizer>
+      )}
     </>
   )
 }

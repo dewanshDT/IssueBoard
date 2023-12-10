@@ -2,7 +2,6 @@ import React from "react"
 import { ticket } from "../../types"
 import {
   FetchNextPageOptions,
-  InfiniteData,
   InfiniteQueryObserverResult,
 } from "@tanstack/react-query"
 import { twMerge } from "tailwind-merge"
@@ -11,17 +10,9 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   isFetching: boolean
   hasNextPage: boolean
   isFetchingNextPage: boolean
-  fetchNextPage: (options?: FetchNextPageOptions | undefined) => Promise<
-    InfiniteQueryObserverResult<
-      InfiniteData<
-        {
-          tickets: ticket[]
-        },
-        unknown
-      >,
-      Error
-    >
-  >
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined
+  ) => Promise<InfiniteQueryObserverResult<ticket[], Error>>
 }
 
 const StatusBar: React.FC<Props> = ({
