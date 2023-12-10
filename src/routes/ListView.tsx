@@ -27,6 +27,7 @@ const ListView = () => {
 
   const [transformedData, setTransformedData] = useState(data)
 
+  // for setting default key value for groupings
   useEffect(() => {
     if (grouping) {
       switch (grouping) {
@@ -54,11 +55,14 @@ const ListView = () => {
     setTransformedData(data)
   }, [data])
 
+  // for filtering the data when key is selected
   useEffect(() => {
     if (groupingKey) {
       setTransformedData(
         data?.filter((item) =>
-          grouping === "assignee"
+          params.status === "backlog" && grouping === "status"
+            ? true
+            : grouping === "assignee"
             ? item.assignee == groupingKey
             : grouping === "label"
             ? item.labels.includes(groupingKey as label)
@@ -70,7 +74,7 @@ const ListView = () => {
         )
       )
     }
-  }, [groupingKey, data, grouping])
+  }, [groupingKey, data, grouping, params.status])
 
   return (
     <div className="w-full h-full flex flex-col p-1 pb-0">
