@@ -1,16 +1,10 @@
 import nameInitials from "name-initials"
-import { label, priority, status, ticket } from "../../types"
+import { label, priority, ticket } from "../../types"
 import clsx from "clsx"
-import {
-  LuCheckCircle2,
-  LuCircle,
-  LuCircleDashed,
-  LuCircleDot,
-  LuGaugeCircle,
-} from "react-icons/lu"
 
 import "./style.css"
 import ToolTip from "../ToolTip"
+import StatusIcon from "../StatusIcon"
 
 const PriorityIcon = ({ priority }: { priority: priority }) => {
   const priorityNum =
@@ -50,22 +44,6 @@ const PriorityIcon = ({ priority }: { priority: priority }) => {
         ></span>
       ))}
     </div>
-  )
-}
-
-const StatusIcon = ({ status }: { status: status }) => {
-  return status === "Triage" ? (
-    <LuGaugeCircle />
-  ) : status === "Backlog" ? (
-    <LuCircleDashed className="" />
-  ) : status === "Todo" ? (
-    <LuCircle />
-  ) : status === "In Progress" ? (
-    <LuCircle className="text-yellow-500" />
-  ) : status === "In Review" ? (
-    <LuCircleDot className="text-indigo-500" />
-  ) : (
-    <LuCheckCircle2 className="text-green-500" />
   )
 }
 
