@@ -8,7 +8,10 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <Navigate to="/issues/active" /> },
-      { path: "issues/:status", element: <ListView /> },
+      {
+        path: "issues/:status",
+        element: <ListView />,
+      },
     ],
   },
 ])

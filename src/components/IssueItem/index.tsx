@@ -92,7 +92,10 @@ const IssueItem = ({
       className="issue-item flex items-center gap-2 px-2 cursor-default"
     >
       <div className="flex gap-2 items-center">
-        <ToolTip tip={"priority: " + issue.priority}>
+        <ToolTip
+          className={clsx(issue.status === "Done" && "grayscale")}
+          tip={"priority: " + issue.priority}
+        >
           <PriorityIcon priority={issue.priority} />
         </ToolTip>
         <ToolTip tip={issue.id}>
@@ -124,7 +127,12 @@ const IssueItem = ({
         </span>
       </div>
       <div className="flex gap-2 items-center ml-auto">
-        <div className="md:flex gap-1 hidden">
+        <div
+          className={clsx(
+            "md:flex gap-1 hidden",
+            issue.status === "Done" && "grayscale"
+          )}
+        >
           {issue.labels.map((label, index) => (
             <div
               key={label + index}

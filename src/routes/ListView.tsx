@@ -1,5 +1,5 @@
 import { GroupingTab, IssueList } from "../components"
-import { useParams, useSearchParams } from "react-router-dom"
+import { Navigate, useParams, useSearchParams } from "react-router-dom"
 import { useGetInfiniteIssues } from "../api"
 import { useEffect, useState } from "react"
 import { label } from "../types"
@@ -75,6 +75,9 @@ const ListView = () => {
       )
     }
   }, [groupingKey, data, grouping, params.status])
+
+  if (!["active", "backlog", "all"].includes(params?.status ?? ""))
+    return <Navigate to="/404" />
 
   return (
     <div className="w-full h-full flex flex-col p-1 pb-0">
