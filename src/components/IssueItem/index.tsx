@@ -1,5 +1,5 @@
 import nameInitials from "name-initials"
-import { label, priority, ticket } from "../../types"
+import { label, priority, status, ticket } from "../../types"
 import clsx from "clsx"
 
 import "./style.css"
@@ -7,7 +7,13 @@ import ToolTip from "../ToolTip"
 import StatusIcon from "../StatusIcon"
 import { LuSmilePlus } from "react-icons/lu"
 
-const PriorityIcon = ({ priority }: { priority: priority }) => {
+const PriorityIcon = ({
+  priority,
+  status,
+}: {
+  priority: priority
+  status: status
+}) => {
   const priorityNum =
     priority === "none"
       ? 0
@@ -33,7 +39,12 @@ const PriorityIcon = ({ priority }: { priority: priority }) => {
   const bgColor = `bg-${priorityColor}-500`
 
   return (
-    <div className="flex items-center gap-0.5">
+    <div
+      className={clsx(
+        "flex items-center gap-0.5",
+        status === "Done" && "grayscale"
+      )}
+    >
       {Array.from({ length: 4 }, (_, index) => index + 1).map((_, index) => (
         <span
           key={index}
@@ -93,11 +104,8 @@ const IssueItem = ({
       className="issue-item flex items-center gap-2 px-2 cursor-default hover:bg-neutral-950 rounded-md"
     >
       <div className="flex gap-2 items-center">
-        <ToolTip
-          className={clsx(issue.status === "Done" && "grayscale")}
-          tip={"priority: " + issue.priority}
-        >
-          <PriorityIcon priority={issue.priority} />
+        <ToolTip tip={"priority: " + issue.priority}>
+          <PriorityIcon status={issue.status} priority={issue.priority} />
         </ToolTip>
         <ToolTip tip={issue.id}>
           <div className="issue-id text-neutral-400 font-light text-xs w-20 text-center line-clamp-1 bg-neutral-800 py-[0.2em] px-1.5 rounded-sm">
