@@ -5,6 +5,7 @@ import clsx from "clsx"
 import "./style.css"
 import ToolTip from "../ToolTip"
 import StatusIcon from "../StatusIcon"
+import { LuSmilePlus } from "react-icons/lu"
 
 const PriorityIcon = ({ priority }: { priority: priority }) => {
   const priorityNum =
@@ -89,7 +90,7 @@ const IssueItem = ({
     <li
       key={issue.id}
       style={style}
-      className="issue-item flex items-center gap-2 px-2 cursor-default"
+      className="issue-item flex items-center gap-2 px-2 cursor-default hover:bg-neutral-950 rounded-md"
     >
       <div className="flex gap-2 items-center">
         <ToolTip
@@ -149,7 +150,11 @@ const IssueItem = ({
           ))}
         </div>
         <div className="py-0.5 w-6 h-6 flex items-center justify-center text-center bg-neutral-700 text-xs text-neutral-200 rounded-full">
-          {issue.assignee ? nameInitials(issue.assignee ?? "none") : ""}
+          {issue.assignee ? (
+            nameInitials(issue.assignee ?? "none")
+          ) : (
+            <LuSmilePlus className="text-lg text text-neutral-400" />
+          )}
         </div>
       </div>
     </li>
