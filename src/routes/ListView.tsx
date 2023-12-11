@@ -82,7 +82,7 @@ const ListView = () => {
     return <Navigate to="/404" />
 
   return (
-    <div className="w-full h-full flex flex-col p-1 pb-0">
+    <div className=" h-full flex flex-col p-1 pb-0">
       {grouping && (
         <GroupingTab
           grouping={grouping}
@@ -90,7 +90,7 @@ const ListView = () => {
           setGroupingKey={setGroupingKey}
         />
       )}
-      <div className="w-full flex-1">
+      <div className="w-full h-full">
         <IssueList status={status} data={transformedData} error={error} />
       </div>
     </div>

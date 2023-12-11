@@ -24,8 +24,13 @@ body {
   color: white;
 }
 
+.scrollbar-hidden::-webkit-scrollbar {
+  display: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
+  height: 4px;
   background: transparent;
 }
 

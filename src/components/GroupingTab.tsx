@@ -53,13 +53,16 @@ const GroupingTab: React.FC<Props> = ({
   return (
     <div
       {...props}
-      className={twMerge(className, "flex w-full pt-0.5 pb-1.5 px-2 gap-2")}
+      className={twMerge(
+        "flex w-full pt-0.5 pb-1.5 px-2 gap-2 overflow-y-auto",
+        className
+      )}
     >
       {tabs?.map((item, index) => (
         <button
           key={item + index}
           className={clsx(
-            "flex items-center gap-1 text-sm capitalize px-1.5 py-0.5 border rounded-md overflow-clip",
+            "flex items-center gap-1 text-sm capitalize px-1.5 py-0.5 border rounded-md whitespace-nowrap",
             groupingKey === item && "bg-opacity-100 border-neutral-300",
             groupingKey !== item && "border-neutral-800",
             grouping === "label" &&
