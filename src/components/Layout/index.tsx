@@ -5,7 +5,7 @@ import SideBar from "./SideBar"
 import { useGetInfiniteIssues } from "../../api"
 
 function Layout() {
-  const { fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
+  const { fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, data } =
     useGetInfiniteIssues()
 
   return (
@@ -27,6 +27,7 @@ function Layout() {
         isFetchingNextPage={isFetchingNextPage}
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
+        itemsLoaded={data?.length}
       />
     </div>
   )

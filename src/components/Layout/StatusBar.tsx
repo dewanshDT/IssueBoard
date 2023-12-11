@@ -7,6 +7,7 @@ import {
 import { twMerge } from "tailwind-merge"
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  itemsLoaded: number | undefined
   isFetching: boolean
   hasNextPage: boolean
   isFetchingNextPage: boolean
@@ -16,6 +17,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const StatusBar: React.FC<Props> = ({
+  itemsLoaded,
   isFetching,
   isFetchingNextPage,
   fetchNextPage,
@@ -27,7 +29,7 @@ const StatusBar: React.FC<Props> = ({
       {...props}
       className={twMerge(
         props.className,
-        "border-t border-neutral-800 p-2 text-xs text-neutral-400 flex"
+        "border-t border-neutral-800 p-2 text-xs text-neutral-400 flex justify-between"
       )}
     >
       <div>
@@ -47,6 +49,9 @@ const StatusBar: React.FC<Props> = ({
             )}
           </button>
         )}
+      </div>
+      <div className="">
+        <div className="">items loaded: {itemsLoaded}</div>
       </div>
     </div>
   )

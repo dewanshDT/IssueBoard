@@ -1,10 +1,12 @@
 import { FixedSizeList } from "react-window"
+import InfiniteLoader from "react-window-infinite-loader"
 import AutoSizer from "react-virtualized-auto-sizer"
 
 import IssueItem from "./IssueItem"
 import { ticket } from "../types"
 
 import { CgSpinner } from "react-icons/cg"
+import { useGetInfiniteIssues } from "../api"
 
 const IssueList = ({
   data,
@@ -15,6 +17,13 @@ const IssueList = ({
   error: Error | null
   status: "error" | "pending" | "success"
 }) => {
+  const { hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useGetInfiniteIssues()
+
+  const loadNextPage = () => {
+    fetchNextPage()
+  }
+
   if (status === "pending")
     return (
       <div className="h-full w-full flex items-center justify-center text-4xl text-neutral-700">
@@ -33,18 +42,26 @@ const IssueList = ({
       {data && (
         <AutoSizer>
           {({ height, width }) => (
-            <>
-              <FixedSizeList
-                className="issue-list relative"
-                height={height}
-                width={width}
-                itemSize={40} // Adjust this value based on your item height
-                itemCount={data.length}
-                itemData={data}
-              >
-                {IssueItem}
-              </FixedSizeList>
-            </>
+            <InfiniteLoader
+              isItemLoaded={(index) => !hasNextPage || index < data.length}
+              itemCount={hasNextPage ? data.length + 1 : data.length}
+              loadMoreItems={isFetchingNextPage ? () => {} : loadNextPage}
+            >
+              {({ onItemsRendered, ref }) => (
+                <FixedSizeList
+                  className="issue-list relative"
+                  height={height}
+                  width={width}
+                  itemSize={40} // Adjust this value based on your item height
+                  itemCount={data.length}
+                  itemData={data}
+                  onItemsRendered={onItemsRendered}
+                  ref={ref}
+                >
+                  {IssueItem}
+                </FixedSizeList>
+              )}
+            </InfiniteLoader>
           )}
         </AutoSizer>
       )}

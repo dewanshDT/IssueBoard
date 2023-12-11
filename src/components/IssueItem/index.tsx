@@ -111,18 +111,17 @@ const IssueItem = ({
       <ToolTip tip={"status: " + issue.status}>
         <StatusIcon status={issue.status} />
       </ToolTip>
-      <div
-        className={clsx(
-          "line-clamp-1 text-neutral-200 text-sm",
-          issue.status === "Done" && "line-through opacity-60"
-        )}
-      >
+      <div className="line-clamp-1 text-neutral-200 text-sm">
         {issue.parentID && (
           <span className="opacity-60 text-xs my-auto">
             {issue.parentID + " > "}
           </span>
         )}
-        {issue.title}
+        <span
+          className={clsx(issue.status === "Done" && "line-through opacity-60")}
+        >
+          {issue.title}
+        </span>
       </div>
       <div className="flex gap-2 items-center ml-auto">
         <div className="md:flex gap-1 hidden">
