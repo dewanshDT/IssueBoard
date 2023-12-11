@@ -20,7 +20,7 @@ const StatusBar: React.FC<Props> = ({
       {...props}
       className={twMerge(
         props.className,
-        "border-t border-neutral-700 p-2 text-xs text-neutral-300 flex justify-between"
+        "border-t border-neutral-800 p-2 text-xs text-neutral-300 flex justify-between"
       )}
     >
       <div>
