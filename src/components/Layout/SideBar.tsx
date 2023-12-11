@@ -9,7 +9,7 @@ const SideBar = () => {
   console.log(searchParams)
 
   return (
-    <div className="w-52 border-r border-neutral-800 h-full py-2 px-3 flex flex-col gap-2">
+    <div className="w-52 border-r border-neutral-800 h-full py-2 px-3 flex flex-col gap-4">
       <div className="">
         <Link to="/issues/all">
           <div
@@ -49,6 +49,7 @@ const SideBar = () => {
           </div>
         </div>
       </div>
+
       <div className="">
         <div className="text-medium text-sm py-1 px-2.5">Group by</div>
         <div className="pl-4 py-1">
