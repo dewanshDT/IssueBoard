@@ -32,7 +32,7 @@ const ListView = () => {
     if (grouping) {
       switch (grouping) {
         case "assignee":
-          setGroupingKey(null)
+          setGroupingKey("assigned")
           break
         case "label":
           setGroupingKey("Bug")
@@ -63,7 +63,9 @@ const ListView = () => {
           params.status === "backlog" && grouping === "status"
             ? true
             : grouping === "assignee"
-            ? item.assignee == groupingKey
+            ? groupingKey === "not assigned"
+              ? !item.assignee
+              : item.assignee
             : grouping === "label"
             ? item.labels.includes(groupingKey as label)
             : grouping === "priority"

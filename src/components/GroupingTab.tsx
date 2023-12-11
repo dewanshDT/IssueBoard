@@ -27,7 +27,7 @@ const GroupingTab: React.FC<Props> = ({
   useEffect(() => {
     switch (grouping) {
       case "assignee":
-        setTabs(data?.map((item) => item.assignee))
+        setTabs(["assigned", "not assigned"])
         break
       case "priority":
         setTabs(["none", "low", "medium", "high", "critical"])
@@ -59,7 +59,7 @@ const GroupingTab: React.FC<Props> = ({
         <button
           key={item + index}
           className={clsx(
-            "flex items-center gap-1 text-sm px-1.5 py-0.5 border border-neutral-700 rounded-md overflow-clip",
+            "flex items-center gap-1 text-sm capitalize px-1.5 py-0.5 border border-neutral-700 rounded-md overflow-clip",
             groupingKey === item && "bg-opacity-100 border-neutral-400",
             grouping === "label" &&
               `${getLabelColor(item as label)} bg-opacity-10`
