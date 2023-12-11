@@ -59,8 +59,9 @@ const GroupingTab: React.FC<Props> = ({
         <button
           key={item + index}
           className={clsx(
-            "flex items-center gap-1 text-sm capitalize px-1.5 py-0.5 border border-neutral-700 rounded-md overflow-clip",
-            groupingKey === item && "bg-opacity-100 border-neutral-400",
+            "flex items-center gap-1 text-sm capitalize px-1.5 py-0.5 border rounded-md overflow-clip",
+            groupingKey === item && "bg-opacity-100 border-neutral-300",
+            groupingKey !== item && "border-neutral-800",
             grouping === "label" &&
               `${getLabelColor(item as label)} bg-opacity-10`
           )}
