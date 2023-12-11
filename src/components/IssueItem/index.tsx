@@ -89,7 +89,7 @@ const IssueItem = ({
     <li
       key={issue.id}
       style={style}
-      className="issue-item flex items-center gap-2 px-2 py-1 cursor-default"
+      className="issue-item flex items-center gap-2 px-2 cursor-default"
     >
       <div className="flex gap-2 items-center">
         <ToolTip tip={"priority: " + issue.priority}>
@@ -128,7 +128,7 @@ const IssueItem = ({
           {issue.labels.map((label, index) => (
             <div
               key={label + index}
-              className="border border-neutral-600 rounded-sm p-0.5 sm:pl-0.5 sm:pr-2 flex gap-2 items-center text-xs w-max line-clamp-1"
+              className="border border-neutral-600 rounded-sm py-[.05em] sm:pl-0.5 sm:pr-2 flex gap-2 items-center text-xs w-max line-clamp-1"
             >
               <span
                 className={clsx(
