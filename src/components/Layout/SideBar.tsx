@@ -1,10 +1,11 @@
 import clsx from "clsx"
 import { LuCircleDot } from "react-icons/lu"
-import { Link, useLocation, useSearchParams } from "react-router-dom"
+import { Link, useLocation, useParams, useSearchParams } from "react-router-dom"
 
 const SideBar = () => {
   const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
+  const params = useParams()
 
   return (
     <div className="w-52 border-r border-neutral-800 h-full py-2 px-3 hidden lg:flex flex-col gap-4">
@@ -63,7 +64,8 @@ const SideBar = () => {
                 className={clsx(
                   "text-sm text-left text-neutral-400 capitalize border border-transparent px-2 py-0.5 rounded-md",
                   searchParams.get("grouping") === item &&
-                    "bg-neutral-800 text-neutral-100 border-neutral-600"
+                    "bg-neutral-800 text-neutral-100 border-neutral-600",
+                  params.status === "backlog" && item === "status" && "hidden"
                 )}
                 onClick={() => {
                   setSearchParams({ grouping: item })
