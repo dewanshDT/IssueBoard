@@ -7,6 +7,7 @@ import { ticket } from "../types"
 
 import { CgSpinner } from "react-icons/cg"
 import { useGetInfiniteIssues } from "../api"
+import React from "react"
 
 const IssueList = ({
   data,
@@ -52,13 +53,13 @@ const IssueList = ({
                   className="issue-list relative"
                   height={height}
                   width={width}
-                  itemSize={30} // Adjust this value based on your item height
+                  itemSize={30}
                   itemCount={data.length}
                   itemData={data}
                   onItemsRendered={onItemsRendered}
                   ref={ref}
                 >
-                  {IssueItem}
+                  {React.memo(IssueItem)}
                 </FixedSizeList>
               )}
             </InfiniteLoader>
