@@ -6,10 +6,9 @@ const SideBar = () => {
   const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
 
-  console.log(searchParams)
-
   return (
     <div className="w-52 border-r border-neutral-800 h-full py-2 px-3 hidden lg:flex flex-col gap-4">
+      {/* Issues Section */}
       <div className="">
         <Link to="/issues/all">
           <div
@@ -22,6 +21,7 @@ const SideBar = () => {
             <span>Issues</span>
           </div>
         </Link>
+        {/* Issues Submenu */}
         <div className="pl-4 py-1">
           <div className="flex flex-col gap-1 border-l-2 border-neutral-700 pl-2">
             <Link to="/issues/active">
@@ -50,10 +50,13 @@ const SideBar = () => {
         </div>
       </div>
 
+      {/* Group By Section */}
       <div className="">
         <div className="text-medium text-sm py-1 px-2.5">Group by</div>
+        {/* Group By Submenu */}
         <div className="pl-4 py-1">
           <div className="flex flex-col gap-1 border-l-2 border-neutral-700 pl-2">
+            {/* Mapping through grouping options */}
             {["assignee", "label", "priority", "status"].map((item, index) => (
               <button
                 key={index + item}

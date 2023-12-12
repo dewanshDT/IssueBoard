@@ -1,88 +1,13 @@
 import nameInitials from "name-initials"
-import { label, priority, status, ticket } from "../../types"
+import { ticket } from "../../types"
 import clsx from "clsx"
 
 import "./style.css"
 import ToolTip from "../ToolTip"
 import StatusIcon from "../StatusIcon"
 import { LuSmilePlus } from "react-icons/lu"
-
-const PriorityIcon = ({
-  priority,
-  status,
-}: {
-  priority: priority
-  status: status
-}) => {
-  const priorityNum =
-    priority === "none"
-      ? 0
-      : priority === "low"
-      ? 1
-      : priority === "medium"
-      ? 2
-      : priority === "high"
-      ? 3
-      : 4
-
-  const priorityColor =
-    priority === "none"
-      ? "indigo"
-      : priority === "low"
-      ? "blue"
-      : priority === "medium"
-      ? "green"
-      : priority === "high"
-      ? "yellow"
-      : "red"
-
-  const bgColor = `bg-${priorityColor}-500`
-
-  return (
-    <div
-      className={clsx(
-        "flex items-center gap-0.5",
-        status === "Done" && "grayscale"
-      )}
-    >
-      {Array.from({ length: 4 }, (_, index) => index + 1).map((_, index) => (
-        <span
-          key={index}
-          className={clsx(
-            "h-1.5 w-1.5 rounded-full inline-block",
-            priorityNum <= index && "opacity-30",
-            bgColor
-          )}
-        ></span>
-      ))}
-    </div>
-  )
-}
-
-const getLabelColor = (label: label) => {
-  switch (label) {
-    case "Bug":
-      return "bg-red-500"
-    case "Feature":
-      return "bg-blue-500"
-    case "Performance":
-      return "bg-yellow-500"
-    case "Security":
-      return "bg-purple-500"
-    case "Documentation":
-      return "bg-green-500"
-    case "User Request":
-      return "bg-pink-500"
-    case "Immediate":
-      return "bg-orange-500"
-    case "Next Release":
-      return "bg-indigo-500"
-    case "Major Release":
-      return "bg-gray-500"
-    default:
-      return "bg-gray-500"
-  }
-}
+import { getLabelColor } from "../../utils"
+import PriorityIcon from "../PriorityIcon"
 
 const IssueItem = ({
   index,

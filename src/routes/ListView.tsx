@@ -2,27 +2,27 @@ import { GroupingTab, IssueList } from "../components"
 import { Navigate, useParams, useSearchParams } from "react-router-dom"
 import { useGetInfiniteIssues } from "../api"
 import { useEffect, useState } from "react"
-import { label } from "../types"
+import { label, ticket } from "../types"
 
 const ListView = () => {
   const params = useParams()
-  console.log(params)
 
   const [searchParams] = useSearchParams()
   const grouping = searchParams.get("grouping")
 
-  console.log(grouping)
-
   const [groupingKey, setGroupingKey] = useState<string | null>()
 
+  // Filter function based on status
   const { data, error, status } = useGetInfiniteIssues((list) => {
-    return list.filter((item) =>
-      params.status === "active"
-        ? item.status !== "Backlog"
-        : params.status === "backlog"
-        ? item.status === "Backlog"
-        : true
-    )
+    return list.filter((item) => {
+      if (params.status === "active") {
+        return item.status !== "Backlog"
+      } else if (params.status === "backlog") {
+        return item.status === "Backlog"
+      } else {
+        return true
+      }
+    })
   })
 
   const [transformedData, setTransformedData] = useState(data)
@@ -47,34 +47,42 @@ const ListView = () => {
           setGroupingKey(null)
       }
     }
-    console.log(groupingKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [grouping])
 
+  // Effect to update transformedData when data changes
   useEffect(() => {
     setTransformedData(data)
   }, [data])
 
-  // for filtering the data when key is selected
+  // Effect for filtering data when groupingKey or status changes
   useEffect(() => {
+    const filterTransformedData = (item: ticket) => {
+      if (params.status === "backlog" && grouping === "status") {
+        return true
+      }
+
+      if (grouping === "assignee") {
+        return groupingKey === "not assigned" ? !item.assignee : item.assignee
+      }
+
+      if (grouping === "label") {
+        return item.labels.includes(groupingKey as label)
+      }
+
+      if (grouping === "priority") {
+        return item.priority === groupingKey
+      }
+
+      if (grouping === "status") {
+        return item.status === groupingKey
+      }
+
+      return true
+    }
+
     if (groupingKey) {
-      setTransformedData(
-        data?.filter((item) =>
-          params.status === "backlog" && grouping === "status"
-            ? true
-            : grouping === "assignee"
-            ? groupingKey === "not assigned"
-              ? !item.assignee
-              : item.assignee
-            : grouping === "label"
-            ? item.labels.includes(groupingKey as label)
-            : grouping === "priority"
-            ? item.priority === groupingKey
-            : grouping === "status"
-            ? item.status === groupingKey
-            : true
-        )
-      )
+      setTransformedData(data?.filter((item) => filterTransformedData(item)))
     }
   }, [groupingKey, data, grouping, params.status])
 
