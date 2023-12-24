@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { twMerge } from "tailwind-merge"
 import { useGetInfiniteIssues } from "../api"
 import StatusIcon from "./StatusIcon"
-import { label, status } from "../types"
+import { Label, Status } from "../types"
 import clsx from "clsx"
 import { getLabelColor } from "../utils"
 
@@ -66,11 +66,11 @@ const GroupingTab: React.FC<Props> = ({
             groupingKey === item && "bg-opacity-100 border-neutral-300",
             groupingKey !== item && "border-neutral-800",
             grouping === "label" &&
-              `${getLabelColor(item as label)} bg-opacity-10`
+              `${getLabelColor(item as Label)} bg-opacity-10`
           )}
           onClick={() => setGroupingKey(item)}
         >
-          {grouping === "status" && <StatusIcon status={item as status} />}
+          {grouping === "status" && <StatusIcon status={item as Status} />}
           <span>{item}</span>
         </button>
       ))}

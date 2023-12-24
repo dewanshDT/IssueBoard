@@ -2,7 +2,7 @@ import { GroupingTab, IssueList } from "../components"
 import { Navigate, useParams, useSearchParams } from "react-router-dom"
 import { useGetInfiniteIssues } from "../api"
 import { useEffect, useState } from "react"
-import { label, ticket } from "../types"
+import { Label, Ticket } from "../types"
 
 const ListView = () => {
   const params = useParams()
@@ -57,7 +57,7 @@ const ListView = () => {
 
   // Effect for filtering data when groupingKey or status changes
   useEffect(() => {
-    const filterTransformedData = (item: ticket) => {
+    const filterTransformedData = (item: Ticket) => {
       if (params.status === "backlog" && grouping === "status") {
         return true
       }
@@ -67,7 +67,7 @@ const ListView = () => {
       }
 
       if (grouping === "label") {
-        return item.labels.includes(groupingKey as label)
+        return item.labels.includes(groupingKey as Label)
       }
 
       if (grouping === "priority") {

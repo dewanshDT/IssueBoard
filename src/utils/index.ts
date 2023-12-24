@@ -1,17 +1,17 @@
-import { label, ticket } from "../types"
+import { Label, Ticket } from "../types"
 
 export const fetchIssues = async ({ pageParam = 1 }) => {
   const res = await fetch(
     `https://sfe-interview.hoppscotch.com/issues-${pageParam}.json`
   )
   const data: {
-    tickets: ticket[]
+    tickets: Ticket[]
   } = await res.json()
 
   return data
 }
 
-export const getLabelColor = (label: label) => {
+export const getLabelColor = (label: Label) => {
   switch (label) {
     case "Bug":
       return "bg-red-500"

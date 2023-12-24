@@ -5,9 +5,9 @@ import {
   LuCircleDot,
   LuGaugeCircle,
 } from "react-icons/lu"
-import { status } from "../types"
+import { Status } from "../types"
 
-const StatusIcon = ({ status }: { status: status }) => {
+const StatusIcon = ({ status }: { status: Status }) => {
   return status === "Triage" ? (
     <LuGaugeCircle />
   ) : status === "Backlog" ? (

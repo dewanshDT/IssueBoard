@@ -1,9 +1,9 @@
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { fetchIssues } from "../utils"
-import { ticket } from "../types"
+import { Ticket } from "../types"
 
 export const useGetInfiniteIssues = (
-  transformFunction: (data: ticket[]) => ticket[] = (data) => data
+  transformFunction: (data: Ticket[]) => Ticket[] = (data) => data
 ) => {
   return useInfiniteQuery({
     queryKey: ["issues"],

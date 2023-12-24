@@ -1,4 +1,4 @@
-export type label =
+export type Label =
   | "Bug"
   | "Feature"
   | "Performance"
@@ -9,7 +9,7 @@ export type label =
   | "Next Release"
   | "Major Release"
 
-export type status =
+export type Status =
   | "Triage"
   | "Backlog"
   | "Todo"
@@ -17,15 +17,15 @@ export type status =
   | "In Review"
   | "Done"
 
-export type priority = "none" | "low" | "medium" | "high" | "critical"
+export type Priority = "none" | "low" | "medium" | "high" | "critical"
 
-export interface ticket {
+export interface Ticket {
   teamID: "HFE" | "HBE" | "HP"
   id: string
   title: string
   parentID: string | null
-  status: status
-  labels: label[]
-  priority: priority
+  status: Status
+  labels: Label[]
+  priority: Priority
   assignee: string
 }

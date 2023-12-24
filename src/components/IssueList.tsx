@@ -3,7 +3,7 @@ import InfiniteLoader from "react-window-infinite-loader"
 import AutoSizer from "react-virtualized-auto-sizer"
 
 import IssueItem from "./IssueItem"
-import { ticket } from "../types"
+import { Ticket } from "../types"
 
 import { CgSpinner } from "react-icons/cg"
 import { useGetInfiniteIssues } from "../api"
@@ -14,7 +14,7 @@ const IssueList = ({
   error,
   status,
 }: {
-  data: ticket[] | undefined
+  data: Ticket[] | undefined
   error: Error | null
   status: "error" | "pending" | "success"
 }) => {

@@ -1,5 +1,5 @@
 import nameInitials from "name-initials"
-import { ticket } from "../../types"
+import { Ticket } from "../../types"
 import clsx from "clsx"
 
 import "./style.css"
@@ -16,7 +16,7 @@ const IssueItem = ({
 }: {
   index: number
   style: React.CSSProperties
-  data: ticket[]
+  data: Ticket[]
 }) => {
   const issue = data[index]
 

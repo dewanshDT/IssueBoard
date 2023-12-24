@@ -1,12 +1,12 @@
 import clsx from "clsx"
-import { priority, status } from "../types"
+import { Priority, Status } from "../types"
 
 const PriorityIcon = ({
   priority,
   status,
 }: {
-  priority: priority
-  status: status
+  priority: Priority
+  status: Status
 }) => {
   const priorityNum =
     priority === "none"
