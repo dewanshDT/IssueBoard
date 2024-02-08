@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="px-6 py-2 border-b border-neutral-800 flex justify-between items-center">
       <div>
-        <h1 className="uppercase font-semibold text-sm">hoppscotch</h1>
+        <h1 className="uppercase font-semibold text-sm">Issue list</h1>
       </div>
       <div className="">
         <Link to="https://github.com/dewanshDT/IssueBoard" target="_blank">
